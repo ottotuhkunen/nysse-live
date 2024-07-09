@@ -1,5 +1,32 @@
+@font-face {
+  font-family: 'ledBoard';
+  src: url('./advanced_led_board-7.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .App {
   text-align: center;
+  font-family: "komet", sans-serif;
+  font-weight: 500;
+  overflow: hidden;
+  user-select: none;
+}
+
+span {
+  font-family: "komet", sans-serif;
+  font-weight: 600;
+}
+
+.map-container {
+  position: fixed;
+  height: 100vh; /* Adjust as necessary */
+}
+
+body {
+  font-family: "komet", sans-serif;
+  font-weight: 500;
+  user-select: none;
 }
 
 .App-logo {
@@ -35,4 +62,254 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.map-container {
+  height: 100vh;
+  width: 100%;
+}
+
+.nav-button-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #0C0243;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.marker {
+  width: 50px;
+  height: 50px;
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.marker span {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  position: absolute;
+  bottom: 5px; /* Adjust text position */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bus-stop-div {
+  background-color: #0C0243;
+  color: white;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  min-height: 36px;
+}
+
+.bus-stop-table {
+  margin-left: 0px;
+  margin-right: 65px;
+}
+
+.bus-stop-table th {
+  text-align: left;
+  padding-right: 10px;
+  font-size: 14pt;
+  font-family: "komet", sans-serif;
+  font-weight: 800;
+  line-height: 1;
+  padding-bottom: 6px;
+}
+
+.bus-stop-table td {
+  text-align: left;
+  padding-right: 10px;
+  font-size: 11pt;
+  font-family: "komet", sans-serif;
+  font-weight: 700;
+  
+}
+
+.bus-stop-table img {
+  height: 18px;
+  padding-right: 6px;
+  vertical-align: top;
+}
+
+.mapboxgl-popup-content {
+  color: white;
+  padding: 6px;
+  font-family: "komet", sans-serif;
+  background-color: #1c57cf;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}
+
+.mapboxgl-popup-close-button {
+  color: white;
+}
+
+.destination-board {
+  font-family: 'ledBoard', Arial, sans-serif;
+  font-size: 12pt;
+  margin: 0;
+  padding: 8px;
+  background-color: black;
+  color: white;
+}
+
+.operator-data {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  padding-bottom: 0px;
+  font-size: 10pt;
+  font-family: "komet", sans-serif;
+  font-weight: 600;
+}
+
+.vehicle-number-icon {
+  max-width: 16px;
+  padding-right: 6px;
+  padding-left: 12px;
+}
+
+.operator-icon { /* Operator logo */
+  height: 18px;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #7a7a7a;
+}
+
+u {
+  pointer-events: none;
+}
+
+.delay-icon {
+  max-width: 16px;
+  padding-right: 4px;
+  vertical-align: middle;
+}
+
+#reitti-button {
+  color: #cdeafc;
+  font-family: "komet", sans-serif;
+  font-weight: 400;
+  background-color: #1c57cf;
+  border: none;
+  cursor: pointer !important;
+}
+
+.route-icon {
+  max-width: 16px;
+  padding-right: 4px;
+  padding-left: 8px;
+  vertical-align: middle;
+}
+
+.logo-img {
+  max-width: 160px;
+  padding: 2px;
+}
+
+.bust-stop-table-header td {
+  font-weight: 400;
+  font-size: 9pt;
+}
+
+.speaker-icon {
+  padding-left: 14px;
+  cursor: pointer;
+  height: unset !important;
+  width: 18px;
+  vertical-align: middle !important;
+}
+
+.time-window {
+  position: fixed;
+  right: 0;
+  top: 0;
+  margin: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  color: #0C0243;
+  background-color: white;
+  font-family: "komet", sans-serif;
+  font-weight: 600;
+  border-radius: 4px;
+  width: 66px;
+}
+
+.colon.visible {
+  visibility: visible;
+}
+
+.colon.hidden {
+  visibility: hidden;
+}
+
+.close-route-button {
+  font-family: "komet", sans-serif;
+  font-weight: 600;
+  font-size: 10pt;
+  z-index: 3000;
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  background-color: #da2128;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 32px;
+  width: 66px;
+  line-height: 1;
+}
+
+.close-route-button:hover {
+  background-color: #e74d52;
+}
+
+.hide-icon {
+  max-width: 18px;
+  padding-right: 3px;
+  vertical-align: middle;
+
+}
+
+.mapboxgl-ctrl-bottom-left {
+  bottom: 0px;
+  z-index: 2000;
+}
+
+
+.mapboxgl-ctrl-top-right {
+  top: unset;
+  bottom: 80px;
+}
+
+.mapboxgl-marker svg {
+  width: 18px !important;
 }

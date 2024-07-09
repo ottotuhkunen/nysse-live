@@ -6,9 +6,15 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@turf/turf": "^7.0.0",
+    "fs": "^0.0.1-security",
+    "graphql": "^16.9.0",
+    "graphql-request": "^7.1.0",
+    "mapbox-gl": "^3.5.1",
+    "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -34,5 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "json-loader": "^0.5.7",
+    "raw-loader": "^4.0.2"
+  },
+  "proxy": "https://tampere-backend-702c3c513b4c.herokuapp.com/"
 }
