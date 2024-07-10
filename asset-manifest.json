@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.9a60d561.css",
-    "main.js": "/static/js/main.a0fd6143.js",
+    "main.js": "/static/js/main.6ca8c5c3.js",
     "static/js/453.a4da5cbd.chunk.js": "/static/js/453.a4da5cbd.chunk.js",
     "static/media/advanced_led_board-7.ttf": "/static/media/advanced_led_board-7.05791db56ef7b4bce885.ttf",
     "index.html": "/index.html",
     "main.9a60d561.css.map": "/static/css/main.9a60d561.css.map",
-    "main.a0fd6143.js.map": "/static/js/main.a0fd6143.js.map",
+    "main.6ca8c5c3.js.map": "/static/js/main.6ca8c5c3.js.map",
     "453.a4da5cbd.chunk.js.map": "/static/js/453.a4da5cbd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.9a60d561.css",
-    "static/js/main.a0fd6143.js"
+    "static/js/main.6ca8c5c3.js"
   ]
 }
