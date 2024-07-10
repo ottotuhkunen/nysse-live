@@ -189,11 +189,12 @@ export const updateVehicleLocations = async (map, popup) => {
           'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
           'text-size': 10,
           'icon-allow-overlap': true,
-          'text-allow-overlap': false,
+          'text-allow-overlap': true,
           'text-anchor': 'center',
           'icon-rotate': ['get', 'bearing']
         },
         paint: {
+          'icon-opacity': 0.7,
           'icon-color': [
             'match',
             ['get', 'lineRef'],
