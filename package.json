@@ -21,7 +21,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -42,8 +45,10 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "json-loader": "^0.5.7",
     "raw-loader": "^4.0.2"
   },
-  "proxy": "https://tampere-backend-702c3c513b4c.herokuapp.com/"
+  "proxy": "https://tampere-backend-702c3c513b4c.herokuapp.com/",
+  "homepage": "https://ottotuhkunen.github.io/nysse-live/"
 }
