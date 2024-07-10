@@ -157,7 +157,7 @@ body {
   background-color: #1c57cf;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 8px;
 }
 
 .mapboxgl-popup-close-button {
@@ -312,4 +312,12 @@ u {
 
 .mapboxgl-marker svg {
   width: 18px !important;
+}
+
+.zone-label {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
 }

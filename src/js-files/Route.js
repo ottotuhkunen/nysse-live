@@ -1,5 +1,7 @@
 import mapboxgl from 'mapbox-gl';
 
+let routeUpdateInterval = null; // Variable to hold the interval ID
+
 // Function to fetch the real name of the stop based on shortName
 const getRealName = async (shortName) => {
   const url = `https://data.itsfactory.fi/journeys/api/1/stop-points/${shortName}`;
@@ -23,7 +25,30 @@ const getRealName = async (shortName) => {
 // Function to display the route on the map
 export const showRoute = async (map, vehicleId) => {
   let vehicleActivities = []; // Declare vehicleActivities with let
-  let routeUpdateInterval = null; // Variable to hold the interval ID
+
+  if (routeUpdateInterval) {
+    clearInterval(routeUpdateInterval); // Clear any previous intervals
+  }
+
+  // Function to remove all existing route layers and sources
+  const removeRoute = () => {
+    const mapLayers = map.current.getStyle().layers;
+    const mapSources = map.current.getStyle().sources;
+    
+    // Remove layers with IDs starting with 'route'
+    mapLayers.forEach(layer => {
+      if (layer.id.startsWith('route')) {
+        map.current.removeLayer(layer.id);
+      }
+    });
+    
+    // Remove sources with IDs starting with 'route'
+    Object.keys(mapSources).forEach(sourceId => {
+      if (sourceId.startsWith('route')) {
+        map.current.removeSource(sourceId);
+      }
+    });
+  };
 
   try {
     const timestamp = new Date().getTime();
@@ -35,26 +60,6 @@ export const showRoute = async (map, vehicleId) => {
     vehicleActivities = data.body;
 
     let vehicleActivity = vehicleActivities.find(activity => activity.monitoredVehicleJourney.vehicleRef === vehicleId);
-
-    // Function to remove all existing route layers and sources
-    const removeRoute = () => {
-      const mapLayers = map.current.getStyle().layers;
-      const mapSources = map.current.getStyle().sources;
-      
-      // Remove layers with IDs starting with 'route'
-      mapLayers.forEach(layer => {
-        if (layer.id.startsWith('route')) {
-          map.current.removeLayer(layer.id);
-        }
-      });
-      
-      // Remove sources with IDs starting with 'route'
-      Object.keys(mapSources).forEach(sourceId => {
-        if (sourceId.startsWith('route')) {
-          map.current.removeSource(sourceId);
-        }
-      });
-    };
 
     // Remove existing route before adding new one
     removeRoute();
@@ -180,7 +185,7 @@ export const showRoute = async (map, vehicleId) => {
 
     // Ensure routeShapesData is loaded and valid
     try {
-      const response = await fetch('./data/route_shapes.geojson');
+      const response = await fetch(`${process.env.PUBLIC_URL}/data/route_shapes.geojson`);
       if (!response.ok) {
         throw new Error('Failed to fetch route shapes data');
       }
@@ -227,6 +232,7 @@ export const showRoute = async (map, vehicleId) => {
 
         // Start updating the route every 10 seconds
         routeUpdateInterval = setInterval(async () => {
+          console.log("Route updated");
           try {
             const timestamp = new Date().getTime();
             const response = await fetch(`https://data.itsfactory.fi/journeys/api/1/vehicle-activity?timestamp=${timestamp}`);
@@ -241,6 +247,7 @@ export const showRoute = async (map, vehicleId) => {
             if (!vehicleActivity || !vehicleActivity.monitoredVehicleJourney) {
               console.warn('Vehicle not found or data format incorrect, stopping updates.');
               clearInterval(routeUpdateInterval);
+              removeRoute();
               return;
             }
 

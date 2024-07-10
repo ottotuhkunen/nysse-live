@@ -4,6 +4,8 @@ import { getColorForDelay, formatArrivalTime } from './utils';
 const InformationDisplay = ({ loading, timetable, selectedStopName, selectedStopZone }) => {
   const [time, setTime] = useState(new Date());
   const [showColon, setShowColon] = useState(true);
+  const [isClickedOutside, setIsClickedOutside] = useState(false); // State to track clicks outside stops-layer
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -27,14 +29,18 @@ const InformationDisplay = ({ loading, timetable, selectedStopName, selectedStop
     if (selectedStopName.includes(" T1")) nameToSpeak = selectedStopName.replace(" T1", " Terminaali 1");
     if (selectedStopName.includes(" T2")) nameToSpeak = selectedStopName.replace(" T2", " Terminaali 2");
 
-    window.responsiveVoice.speak(nameToSpeak, 'Finnish Female', { rate: 1 });
+    window.responsiveVoice.speak(nameToSpeak, 'Finnish Female', { rate: 0.8 });
   };
 
-  const formatTime = (date) => {
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return `${hours}:${minutes}`;
+  // Handle click outside stops-layer
+  const handleClickOutside = () => {
+    setIsClickedOutside(true);
   };
+
+  // Reset isClickedOutside when selectedStopName changes
+  useEffect(() => {
+    setIsClickedOutside(false);
+  }, [selectedStopName]);
 
   return (
     <div className="bus-stop-div">
@@ -46,7 +52,7 @@ const InformationDisplay = ({ loading, timetable, selectedStopName, selectedStop
 
       {loading ? ( // 1. loading display
         <p>Ladataan tietoja...</p>
-      ) : selectedStopName.length > 0 ? ( // 2. bus-stop display
+      ) : selectedStopName.length > 0 && !isClickedOutside ? ( // 2. bus-stop display
         <table className='bus-stop-table'>
           <thead>
             <tr>

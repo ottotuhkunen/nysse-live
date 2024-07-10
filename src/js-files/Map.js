@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { mapboxToken, updateInterval } from './constants';
 import stopIcon from '../icons/stop.png';
 import { parseStopsData, updateVehicleLocations } from './utils';
+import loadZones from './Zones';
 
 mapboxgl.accessToken = mapboxToken;
 
@@ -12,7 +13,8 @@ const Map = ({
   stopsData,
   setSelectedStop,
   setSelectedStopName,
-  setSelectedStopZone
+  setSelectedStopZone,
+  onClickOutside // Callback to handle click outside stops-layer
 }) => {
   const popup = useRef(null);
   const geolocateControlRef = useRef(null);
@@ -33,6 +35,8 @@ const Map = ({
       });
 
       map.current.on('load', () => {
+        
+        loadZones(map.current); // Add Zones to the map
 
         map.current.addControl(new mapboxgl.NavigationControl());
 
@@ -129,6 +133,9 @@ const Map = ({
                 markerRef.current.remove();
                 markerRef.current = null;
               }
+
+              onClickOutside(); // Inform InformationDisplay about click outside stops-layer
+              
             }
           });
 

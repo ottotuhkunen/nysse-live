@@ -189,7 +189,7 @@ export const updateVehicleLocations = async (map, popup) => {
           'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
           'text-size': 10,
           'icon-allow-overlap': true,
-          'text-allow-overlap': true,
+          'text-allow-overlap': false,
           'text-anchor': 'center',
           'icon-rotate': ['get', 'bearing']
         },
@@ -233,7 +233,7 @@ export const updateVehicleLocations = async (map, popup) => {
         }
 
         // Create new popup and display it
-        popup.current = new mapboxgl.Popup({ offset: 25, closeOnClick: true })
+        popup.current = new mapboxgl.Popup({ offset: 12, closeOnClick: true })
           .setLngLat(coordinates)
           .setHTML(popupContent)
           .addTo(map.current);

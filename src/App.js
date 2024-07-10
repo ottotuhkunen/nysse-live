@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     console.log(selectedStop);
     if (selectedStop) {
-      fetch(`http://localhost:4000/api/stops/${selectedStop}`)
+      fetch(`https://tampere-backend-97492ba9e80a.herokuapp.com/api/stops/${selectedStop}`)
         .then(response => response.json())
         .then(data => {
           setTimetable(data.stoptimesWithoutPatterns);
@@ -45,6 +45,13 @@ function App() {
     }
   }, [selectedStop]);
 
+  const handleOnClickOutside = () => {
+    // Handle any necessary state updates or actions
+    setSelectedStop(''); // For example, reset selected stop
+    setSelectedStopName('');
+    setSelectedStopZone('');
+  };
+
   return (
     <div className="App">
       <Map
@@ -54,12 +61,14 @@ function App() {
         setSelectedStop={setSelectedStop}
         setSelectedStopName={setSelectedStopName}
         setSelectedStopZone={setSelectedStopZone}
+        onClickOutside={handleOnClickOutside} 
       />
       <InformationDisplay
         loading={loading}
         timetable={timetable}
         selectedStopName={selectedStopName}
         selectedStopZone={selectedStopZone}
+        onClickOutside={handleOnClickOutside} 
       />
     </div>
   );

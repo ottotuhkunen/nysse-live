@@ -22,7 +22,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -49,6 +48,6 @@
     "json-loader": "^0.5.7",
     "raw-loader": "^4.0.2"
   },
-  "proxy": "https://tampere-backend-702c3c513b4c.herokuapp.com/",
+  "proxy": "https://tampere-backend-97492ba9e80a.herokuapp.com/",
   "homepage": "https://ottotuhkunen.github.io/nysse-live/"
 }
