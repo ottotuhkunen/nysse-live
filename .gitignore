@@ -24,3 +24,4 @@ yarn-error.log*
 
 /proxy-server/node_modules
 /src/js-files/constants.js
+/proxy-server
