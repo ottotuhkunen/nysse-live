@@ -5,6 +5,7 @@ import './App.css';
 import { fetchStopsData, parseStopsData } from './js-files/utils';
 import Map from './js-files/Map';
 import InformationDisplay from './js-files/InformationDisplay';
+import Alerts from './js-files/Alerts'; 
 
 function App() {
   const mapContainer = useRef(null);
@@ -70,6 +71,7 @@ function App() {
         selectedStopZone={selectedStopZone}
         onClickOutside={handleOnClickOutside} 
       />
+      <Alerts />
     </div>
   );
 }

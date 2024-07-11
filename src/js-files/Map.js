@@ -90,7 +90,12 @@ const Map = ({
             source: 'stops',
             layout: {
               'icon-image': 'stop-icon',
-              'icon-size': 0.1,
+              'icon-size': [
+                'interpolate', ['linear'], ['zoom'],
+                12, 0.1,
+                13, 0.15,
+                14, 0.2
+              ],
               'icon-allow-overlap': true,
             },
             paint: {
@@ -98,6 +103,7 @@ const Map = ({
             },
             minzoom: 12
           });
+          
 
           map.current.on('click', 'stops-layer', (e) => {
             const stopId = e.features[0].properties.stop_id;

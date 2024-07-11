@@ -229,7 +229,7 @@ u {
 }
 
 .logo-img {
-  max-width: 160px;
+  max-width: 150px;
   padding: 2px;
 }
 
@@ -244,6 +244,7 @@ u {
   height: unset !important;
   width: 18px;
   vertical-align: middle !important;
+  user-select: none;
 }
 
 .time-window {
@@ -296,18 +297,21 @@ u {
   max-width: 18px;
   padding-right: 3px;
   vertical-align: middle;
-
 }
 
 .mapboxgl-ctrl-bottom-left {
-  bottom: 0px;
+  bottom: 30px;
   z-index: 2000;
 }
 
+.mapboxgl-ctrl-bottom-right {
+  bottom: -40px;
+  z-index: 2000;
+}
 
 .mapboxgl-ctrl-top-right {
   top: unset;
-  bottom: 80px;
+  bottom: 100px;
 }
 
 .mapboxgl-marker svg {

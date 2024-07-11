@@ -194,7 +194,7 @@ export const updateVehicleLocations = async (map, popup) => {
           'icon-rotate': ['get', 'bearing']
         },
         paint: {
-          'icon-opacity': 0.7,
+          'icon-opacity': 0.8,
           'icon-color': [
             'match',
             ['get', 'lineRef'],
@@ -217,6 +217,11 @@ export const updateVehicleLocations = async (map, popup) => {
         if (e.target && e.target.id === 'reitti-button') {
           e.preventDefault();
           let vehicleId = e.target.dataset.vehicleId;
+
+          if (popup.current) {
+            popup.current.remove();
+            popup.current = null; // Ensure the reference is cleared
+          }
 
           // Call showRoute with map and vehicleActivity
           await showRoute(map, vehicleId);
