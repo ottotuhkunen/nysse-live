@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/nysse-live/static/css/main.dd1b981d.css",
-    "main.js": "/nysse-live/static/js/main.a5b4c426.js",
+    "main.css": "/nysse-live/static/css/main.aad207f9.css",
+    "main.js": "/nysse-live/static/js/main.036de486.js",
     "static/js/453.a4da5cbd.chunk.js": "/nysse-live/static/js/453.a4da5cbd.chunk.js",
     "static/media/advanced_led_board-7.ttf": "/nysse-live/static/media/advanced_led_board-7.05791db56ef7b4bce885.ttf",
     "static/media/zones.geojson": "/nysse-live/static/media/zones.92e80e146b08175aab86.geojson",
     "index.html": "/nysse-live/index.html",
-    "main.dd1b981d.css.map": "/nysse-live/static/css/main.dd1b981d.css.map",
-    "main.a5b4c426.js.map": "/nysse-live/static/js/main.a5b4c426.js.map",
+    "main.aad207f9.css.map": "/nysse-live/static/css/main.aad207f9.css.map",
+    "main.036de486.js.map": "/nysse-live/static/js/main.036de486.js.map",
     "453.a4da5cbd.chunk.js.map": "/nysse-live/static/js/453.a4da5cbd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dd1b981d.css",
-    "static/js/main.a5b4c426.js"
+    "static/css/main.aad207f9.css",
+    "static/js/main.036de486.js"
   ]
 }
