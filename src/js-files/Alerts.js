@@ -78,7 +78,7 @@ const Alerts = () => {
                   <tbody>
                     <tr>
                       <td>
-                        <img src={`${process.env.PUBLIC_URL}/icons/alert.png`} alt="alert icon" className="alert-icon" />
+                        <img src={`${process.env.PUBLIC_URL}/icons/alert.png`} alt="alert icon" className="alert-icon-modal" />
                       </td>
                       <td>{alert}</td>
                     </tr>

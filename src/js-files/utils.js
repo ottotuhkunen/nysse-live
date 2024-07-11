@@ -184,12 +184,12 @@ export const updateVehicleLocations = async (map, popup) => {
             '3', 'tram-vehicle1', // ratikka
             'bus-vehicle1'
           ],
-          'icon-size': 0.09,
+          'icon-size': 0.18,
           'text-field': '{lineRef}',
           'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
           'text-size': 10,
-          'icon-allow-overlap': true,
-          'text-allow-overlap': true,
+          'icon-allow-overlap': true, 'text-allow-overlap': true, 'text-optional': true,
+
           'text-anchor': 'center',
           'icon-rotate': ['get', 'bearing']
         },
@@ -204,14 +204,13 @@ export const updateVehicleLocations = async (map, popup) => {
           ],
           'text-color': [
             'case',
-            ['>', ['get', 'delay'], 9], 'darkred', // red
-            ['>', ['get', 'delay'], 4], '#b7660f', // orange
-            'black' 
+            ['>', ['get', 'delay'], 9], '#db00d6', // violet
+            ['>', ['get', 'delay'], 4], 'orange', // orange
+            'white' 
           ]
         }
       });
       
-
       // Define the click event handler for "Reitti" button
       reittiButtonClickHandler = async (e) => {
         if (e.target && e.target.id === 'reitti-button') {
@@ -243,6 +242,14 @@ export const updateVehicleLocations = async (map, popup) => {
           .setLngLat(coordinates)
           .setHTML(popupContent)
           .addTo(map.current);
+
+        // Apply background color based on line type (bus or tram)
+        const popupElement = document.querySelector('.mapboxgl-popup-content');
+        if (e.features[0].properties.lineRef === "1" || e.features[0].properties.lineRef === "3") {
+          popupElement.classList.add('tram-popup');
+        } else {
+          popupElement.classList.add('bus-popup');
+        }
 
         // Reattach event listener for "Reitti" button inside the popup
         document.addEventListener('click', reittiButtonClickHandler);
