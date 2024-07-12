@@ -11,7 +11,7 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
-    z-index: 9999;
+    z-index: 2000;
 }
 
 .alerts-ticker-wrapper {
@@ -34,12 +34,14 @@
 
 .alerts-button {
     background-color: white;
-    color: red;
+    color: #eb5e47;
     font-size: 11pt;
-    padding: 5px 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     cursor: pointer;
     margin-right: 10px;
     border-radius: 4px;
+    width: 34px;
 }
 
 .alerts-modal {

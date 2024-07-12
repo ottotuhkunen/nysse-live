@@ -112,7 +112,7 @@ const createPopupContent = (activity) => {
 };
 
 // Update vehicle locations on the map
-export const updateVehicleLocations = async (map, popup) => {
+export const updateVehicleLocations = async (map, popup, filterLines = [], filterOperators = []) => {
   let vehicleActivities = []; // Declare vehicleActivities with let
   let reittiButtonClickHandler; // Declare reittiButtonClickHandler outside to access later
 
@@ -125,12 +125,13 @@ export const updateVehicleLocations = async (map, popup) => {
     const data = await response.json();
     vehicleActivities = data.body; // Update vehicleActivities with latest data
 
-    const geojson = {
-      type: 'FeatureCollection',
-      features: await Promise.all(vehicleActivities.map(async (activity) => {
-        const delayInMinutes = parseISODurationToMinutes(activity.monitoredVehicleJourney.delay);
-        const realDestinationName = await getRealName(activity.monitoredVehicleJourney.destinationShortName);
+    const features = await Promise.all(vehicleActivities.map(async (activity) => {
+      const delayInMinutes = parseISODurationToMinutes(activity.monitoredVehicleJourney.delay);
+      const realDestinationName = await getRealName(activity.monitoredVehicleJourney.destinationShortName);
 
+      // Filter vehicles based on selected lines and operators
+      if ((filterLines.length === 0 || filterLines.includes(activity.monitoredVehicleJourney.lineRef)) &&
+          (filterOperators.length === 0 || filterOperators.includes(activity.monitoredVehicleJourney.operatorRef))) {
         return {
           type: 'Feature',
           geometry: {
@@ -150,7 +151,14 @@ export const updateVehicleLocations = async (map, popup) => {
             bearing: parseInt(activity.monitoredVehicleJourney.bearing, 10)
           }
         };
-      }))
+      } else {
+        return null;
+      }
+    }));
+
+    const geojson = {
+      type: 'FeatureCollection',
+      features: features.filter(feature => feature !== null) // Filter out null features
     };
 
     // Check if the 'vehicles' source exists and update data or add new source and layers
@@ -166,7 +174,7 @@ export const updateVehicleLocations = async (map, popup) => {
         if (error) throw error;
         map.current.addImage('bus-vehicle1', busIcon);
       });
-    
+
       map.current.loadImage(tramIconUrl, (error, tramIcon) => {
         if (error) throw error;
         map.current.addImage('tram-vehicle1', tramIcon);
@@ -180,16 +188,17 @@ export const updateVehicleLocations = async (map, popup) => {
           'icon-image': [
             'match',
             ['get', 'lineRef'],
-            '1', 'tram-vehicle1', // ratikka
-            '3', 'tram-vehicle1', // ratikka
+            '1', 'tram-vehicle1', // tram
+            '3', 'tram-vehicle1', // tram
             'bus-vehicle1'
           ],
           'icon-size': 0.18,
           'text-field': '{lineRef}',
           'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
           'text-size': 10,
-          'icon-allow-overlap': true, 'text-allow-overlap': true, 'text-optional': true,
-
+          'icon-allow-overlap': true,
+          'text-allow-overlap': true,
+          'text-optional': true,
           'text-anchor': 'center',
           'icon-rotate': ['get', 'bearing']
         },
@@ -206,11 +215,11 @@ export const updateVehicleLocations = async (map, popup) => {
             'case',
             ['>', ['get', 'delay'], 9], '#db00d6', // violet
             ['>', ['get', 'delay'], 4], 'orange', // orange
-            'white' 
+            'white'
           ]
         }
       });
-      
+
       // Define the click event handler for "Reitti" button
       reittiButtonClickHandler = async (e) => {
         if (e.target && e.target.id === 'reitti-button') {

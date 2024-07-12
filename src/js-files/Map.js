@@ -20,6 +20,107 @@ const Map = ({
   const geolocateControlRef = useRef(null);
   const [userLocation, setUserLocation] = useState(null);
   const markerRef = useRef(null); // Reference to the marker
+  const intervalRef = useRef(null); // Reference to the interval ID
+
+  const allLines = [
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
+    '22', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36A', '36B', '37', '37X', '38', '39',
+    '40', '40A', '40B', '40C', '41', '42', '43U', '44', '44A', '45', '46', '47', '48', '48A', '48B', '48C',
+    '48D', '49', '50', '52A', '52B', '55', '60', '60U', '63', '64', '65', '65A', '66', '67', '68U', '69U',
+    '70', '71', '72A', '72B', '73A', '73B', '74', '76', '77', '77X', '78', '78X', '79A', '79B', '80', '80Y',
+    '81', '82', '84', '85', '86', '86X', '87U', '90', '90X', '91', '92', '93', '94', '95', '95U', '96U',
+    '97A', '97B', '97C', '97D', '301', '303'
+  ];
+
+  const allOperators = [
+    { id: '56920', name: 'Tampereen Ratikka' },
+    { id: '47374', name: 'Koiviston Auto' },
+    { id: '6990', name: 'Länsilinjat' },
+    { id: '6852', name: 'Pohjolan Liikenne' },
+    { id: '6921', name: 'Tampereen Kaupunkiliikenne TKL' },
+    { id: '6957', name: 'Valkeakosken Liikenne' },
+    { id: '10299', name: 'Vekka Group' },
+    { id: '3012', name: 'REMOTED' }
+  ];
+
+  const [filterLines, setFilterLines] = useState([]);
+  const [tempFilterLines, setTempFilterLines] = useState([...allLines]); // Start with all lines selected
+  const [tempFilterOperators, setTempFilterOperators] = useState(allOperators.map(op => op.id)); // Start with all operators selected
+
+  const [filterVisible, setFilterVisible] = useState(false);
+
+  const handleApplyFilters = () => {
+    setFilterLines(tempFilterLines);
+    setFilterVisible(false); // Hide filter after applying
+
+    // Clear existing interval and start a new one with updated filters
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    const initialUpdate = () => updateVehicleLocations(map, popup, tempFilterLines, tempFilterOperators);
+    initialUpdate();
+    intervalRef.current = setInterval(initialUpdate, updateInterval);
+  };
+
+  const handleFilterClick = (line) => {
+    setTempFilterLines((prevLines) => {
+      // Check if all lines are currently selected
+      const allSelected = prevLines.length === allLines.length;
+
+      if (allSelected) {
+        // Deselect all lines except the clicked line
+        return [line];
+      } else {
+        // Toggle selection of the clicked line
+        if (prevLines.includes(line)) {
+          return prevLines.filter((l) => l !== line);
+        } else {
+          return [...prevLines, line];
+        }
+      }
+    });
+  };
+
+  const handleOperatorClick = (operatorId) => {
+    setTempFilterOperators([operatorId]); // Only allow one operator at a time
+    setFilterVisible(false); // Close the filter div
+
+    // Clear existing interval and start a new one with updated filters
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    const initialUpdate = () => updateVehicleLocations(map, popup, tempFilterLines, [operatorId]);
+    initialUpdate();
+    intervalRef.current = setInterval(initialUpdate, updateInterval);
+  };
+
+  const resetFilters = () => {
+    // Toggle between selecting all lines and deselecting all lines
+    if (tempFilterLines.length === allLines.length) {
+      setTempFilterLines([]);
+    } else {
+      setTempFilterLines([...allLines]);
+    }
+  };
+
+  const resetAllFilters = () => {
+    // Reset lines
+    setTempFilterLines([...allLines]);
+
+    // Reset operators
+    setTempFilterOperators(allOperators.map(op => op.id));
+
+    // Close the filter div
+    setFilterVisible(false);
+
+    // Clear existing interval and start a new one with updated filters
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    const initialUpdate = () => updateVehicleLocations(map, popup, allLines, allOperators.map(op => op.id));
+    initialUpdate();
+    intervalRef.current = setInterval(initialUpdate, updateInterval);
+  };
 
   useEffect(() => {
     if (stopsData) {
@@ -35,7 +136,7 @@ const Map = ({
       });
 
       map.current.on('load', () => {
-        
+
         loadZones(map.current); // Add Zones to the map
 
         map.current.addControl(new mapboxgl.NavigationControl());
@@ -51,9 +152,9 @@ const Map = ({
           showUserHeading: true,
           showAccuracyCircle: false
         });
-  
+
         map.current.addControl(geolocateControlRef.current);
-  
+
         geolocateControlRef.current.on('geolocate', (e) => {
           const userPosition = [e.coords.longitude, e.coords.latitude];
           setUserLocation(userPosition);
@@ -103,7 +204,6 @@ const Map = ({
             },
             minzoom: 12
           });
-          
 
           map.current.on('click', 'stops-layer', (e) => {
             const stopId = e.features[0].properties.stop_id;
@@ -141,23 +241,71 @@ const Map = ({
               }
 
               onClickOutside(); // Inform InformationDisplay about click outside stops-layer
-              
             }
           });
 
-          const initialUpdate = () => updateVehicleLocations(map, popup);
+          const initialUpdate = () => updateVehicleLocations(map, popup, filterLines, tempFilterOperators);
           initialUpdate();
-          const interval = setInterval(initialUpdate, updateInterval);
+          intervalRef.current = setInterval(initialUpdate, updateInterval);
 
           return () => {
-            clearInterval(interval);
+            clearInterval(intervalRef.current);
           };
         });
       });
     }
   }, [stopsData]);
 
-  return <div className="map-container" ref={mapContainer} />;
+  return (
+    <div className="map-container" ref={mapContainer}>
+      <button className="filter-button" onClick={() => setFilterVisible(!filterVisible)}>
+        <img src={`${process.env.PUBLIC_URL}/icons/filter.png`} alt="Filter" className="filter-icon" />
+      </button>
+      {filterVisible && (
+        <>
+          <div className="overlay" onClick={() => setFilterVisible(false)}></div>
+          <div className="filter-container">
+            <button className="filter-div-close-button" onClick={() => setFilterVisible(false)}>X</button>
+            <h2>Linjat</h2>
+            <div className="filter-buttons">
+              {allLines.map((line) => (
+                <button
+                  key={line}
+                  className={tempFilterLines.includes(line) ? 'active' : ''}
+                  onClick={() => handleFilterClick(line)}
+                >
+                  {line}
+                </button>
+              ))}
+            </div>
+            <div className="filter-actions">
+              <button onClick={resetFilters} className="filter-reset-button">
+                {tempFilterLines.length === allLines.length ? 'Käännä kaikki' : 'Näytä kaikki'}
+              </button>
+              <button onClick={handleApplyFilters} className="filter-apply-button">Käytä</button>
+            </div>
+            <h2>Liikennöitsijät</h2>
+            <div className="filter-buttons filter-by-operator">
+              {allOperators.map((operator) => (
+                <button
+                  key={operator.id}
+                  className={tempFilterOperators.includes(operator.id) ? 'active' : 'gray'}
+                  onClick={() => handleOperatorClick(operator.id)}
+                >
+                  {operator.name}
+                </button>
+              ))}
+            </div>
+            <div className="filter-actions">
+              <button onClick={resetAllFilters} className="filter-reset-all-button">Näytä kaikki liikennöitsijät</button>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+  
+  
 };
 
 export default Map;

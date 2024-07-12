@@ -34,20 +34,21 @@ export const loadZones = (map) => {
           type: 'symbol',
           source: 'zones',
           layout: {
-            'text-field': 'Zone {ZONE}',
+            'text-field': '{ZONE}',
             'text-font': ['Open Sans Regular'],
-            'text-size': 10,
+            'text-size': 12,
             'symbol-placement': 'line',
             'text-keep-upright': true,
             'text-rotation-alignment': 'map',
             'text-allow-overlap': true,
             'text-anchor': 'center',
-            'text-offset': [0, -0.5]
+            'text-offset': [0, -0.5],
+            'symbol-spacing': 200
           },
           paint: {
             'text-color': 'white',
             'text-halo-color': 'black',
-            'text-halo-width': 1
+            'text-halo-width': 10
           }
         });
 
