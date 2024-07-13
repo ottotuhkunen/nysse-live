@@ -4,6 +4,7 @@ import { mapboxToken, updateInterval } from './constants';
 import stopIcon from '../icons/stop.png';
 import { parseStopsData, updateVehicleLocations } from './utils';
 import loadZones from './Zones';
+import { routeUpdateInterval, removeRoute } from './Route';
 
 mapboxgl.accessToken = mapboxToken;
 
@@ -275,14 +276,23 @@ const Map = ({
     };
   }, [filterVisible, handleApplyFilters]);
 
+  function closeRouteDiv() {
+    const routeStopsContainer = document.getElementById('route-stops-container');
+    if (routeStopsContainer) {
+      routeStopsContainer.style.display = 'none';
+      clearInterval(routeUpdateInterval);
+      removeRoute(map); 
+    }
+  }
+
   return (
     <div className="map-container" ref={mapContainer}>
-      <button className="filter-button" onClick={() => setFilterVisible(!filterVisible)}>
+      <button className="filter-button" onClick={() => {setFilterVisible(!filterVisible); closeRouteDiv();}}>
         <img src={`${process.env.PUBLIC_URL}/icons/filter.png`} alt="Filter" className="filter-icon" />
       </button>
       {filterVisible && (
         <>
-          <div className="overlay" onClick={() => setFilterVisible(false)}></div>
+          <div className="overlay"></div>
           <div className="filter-container">
             <button className="filter-div-close-button" onClick={handleApplyFilters}>X</button>
             <h2>Linjat</h2>

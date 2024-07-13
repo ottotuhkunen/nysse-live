@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
 import '../Route.css';
+import { closeStopData } from '../App';
+
 
 let routeUpdateInterval = null; // Variable to hold the interval ID
 
@@ -24,8 +26,37 @@ const getRealName = async (shortName) => {
   }
 };
 
+// Function to calculate the time difference in minutes
+const getTimeDifferenceInMinutes = (expectedArrivalTime) => {
+  const now = new Date();
+  const arrivalTime = new Date(expectedArrivalTime);
+  const differenceInMilliseconds = arrivalTime - now;
+  return Math.floor(differenceInMilliseconds / 60000); // Convert to minutes
+};
+
+// Function to remove all existing route layers and sources
+const removeRoute = (map) => {
+  const mapLayers = map.current.getStyle().layers;
+  const mapSources = map.current.getStyle().sources;
+  
+  // Remove layers with IDs starting with 'route'
+  mapLayers.forEach(layer => {
+    if (layer.id.startsWith('route')) {
+      map.current.removeLayer(layer.id);
+    }
+  });
+  
+  // Remove sources with IDs starting with 'route'
+  Object.keys(mapSources).forEach(sourceId => {
+    if (sourceId.startsWith('route')) {
+      map.current.removeSource(sourceId);
+    }
+  });
+};
+
 // Function to display the route on the map
 export const showRoute = async (map, vehicleId) => {
+  closeStopData();
   let vehicleActivities = []; // Declare vehicleActivities with let
 
   if (routeUpdateInterval) {
@@ -36,26 +67,6 @@ export const showRoute = async (map, vehicleId) => {
   if (loadingMessage) {
     loadingMessage.style.display = 'block'; // Show the loading message
   }
-
-  // Function to remove all existing route layers and sources
-  const removeRoute = () => {
-    const mapLayers = map.current.getStyle().layers;
-    const mapSources = map.current.getStyle().sources;
-    
-    // Remove layers with IDs starting with 'route'
-    mapLayers.forEach(layer => {
-      if (layer.id.startsWith('route')) {
-        map.current.removeLayer(layer.id);
-      }
-    });
-    
-    // Remove sources with IDs starting with 'route'
-    Object.keys(mapSources).forEach(sourceId => {
-      if (sourceId.startsWith('route')) {
-        map.current.removeSource(sourceId);
-      }
-    });
-  };
 
   try {
     const timestamp = new Date().getTime();
@@ -69,7 +80,7 @@ export const showRoute = async (map, vehicleId) => {
     let vehicleActivity = vehicleActivities.find(activity => activity.monitoredVehicleJourney.vehicleRef === vehicleId);
 
     // Remove existing route before adding new one
-    removeRoute();
+    removeRoute(map);
 
     let onwardCalls = vehicleActivity?.monitoredVehicleJourney?.onwardCalls;
     let routeId = vehicleActivity?.monitoredVehicleJourney?.lineRef;
@@ -112,9 +123,15 @@ export const showRoute = async (map, vehicleId) => {
 
         // Fetch real name asynchronously
         const stopName = await getRealName(stopId);
-        const expectedArrivalTime = call.expectedArrivalTime
-          ? new Date(call.expectedArrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-          : 'Nyt';
+
+        // Calculate the expected arrival time or remaining minutes
+        let expectedArrivalTime;
+        if (call.expectedArrivalTime) {
+          const minutesToArrival = getTimeDifferenceInMinutes(call.expectedArrivalTime);
+          expectedArrivalTime = minutesToArrival < 10 ? `${minutesToArrival} min` : new Date(call.expectedArrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        } else {
+          expectedArrivalTime = 'Nyt';
+        }
 
         return {
           stopName: stopName || `Stop ${stopId}`,
@@ -257,7 +274,7 @@ export const showRoute = async (map, vehicleId) => {
             if (!vehicleActivity || !vehicleActivity.monitoredVehicleJourney) {
               console.warn('Vehicle not found or data format incorrect, stopping updates.');
               clearInterval(routeUpdateInterval);
-              removeRoute();
+              removeRoute(map);
               return;
             }
 
@@ -297,9 +314,15 @@ export const showRoute = async (map, vehicleId) => {
 
                 // Fetch real name asynchronously
                 const stopName = await getRealName(stopId);
-                const expectedArrivalTime = call.expectedArrivalTime
-                  ? new Date(call.expectedArrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                  : 'Nyt';
+
+                // Calculate the expected arrival time or remaining minutes
+                let expectedArrivalTime;
+                if (call.expectedArrivalTime) {
+                  const minutesToArrival = getTimeDifferenceInMinutes(call.expectedArrivalTime);
+                  expectedArrivalTime = minutesToArrival < 10 ? `${minutesToArrival} min` : new Date(call.expectedArrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                } else {
+                  expectedArrivalTime = 'Nyt';
+                }
 
                 return {
                   stopName: stopName || `Stop ${stopId}`,
@@ -355,9 +378,9 @@ export const showRoute = async (map, vehicleId) => {
 
       closeButton.addEventListener('click', () => {
         clearInterval(routeUpdateInterval); // Stop updating route
-        removeRoute(); // Remove route when close button is clicked
+        removeRoute(map); // Remove route when close button is clicked
         closeButton.remove();
-        document.getElementById('route-stops-container').style.display = 'none'; // Hide the route stops div
+        document.getElementById('route-stops-container').style.display = 'none';
       });
     }
 
@@ -384,6 +407,7 @@ export const showRoute = async (map, vehicleId) => {
 const updateRouteStopsDiv = (stopsData) => {
   const routeStopsContainer = document.getElementById('route-stops-container');
   routeStopsContainer.innerHTML = ''; // Clear existing content
+  routeStopsContainer.style.display = 'block';
 
   const stopsList = document.createElement('div');
   stopsList.classList.add('stops-list');
@@ -398,7 +422,7 @@ const updateRouteStopsDiv = (stopsData) => {
 
     const stopTime = document.createElement('div');
     stopTime.classList.add('stop-time');
-    stopTime.innerText = "~ " + stop.expectedArrivalTime;
+    stopTime.innerText = stop.expectedArrivalTime;
 
     stopItem.appendChild(stopName);
     stopItem.appendChild(stopTime);
@@ -408,7 +432,5 @@ const updateRouteStopsDiv = (stopsData) => {
   routeStopsContainer.appendChild(stopsList);
 };
 
-
-
-
+export { removeRoute, routeUpdateInterval };
 export default showRoute;

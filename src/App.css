@@ -361,7 +361,7 @@ u {
   top: 50%;
   right: 50%;
   transform: translate(50%, -50%);
-  z-index: 5000;
+  z-index: 9000;
   background-color: #e3efff;
   border: 1px solid #ccc;
   padding: 10px;
