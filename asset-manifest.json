@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/nysse-live/static/css/main.6bda03f3.css",
-    "main.js": "/nysse-live/static/js/main.dcb4e1b7.js",
+    "main.js": "/nysse-live/static/js/main.74a787fb.js",
     "static/js/453.a4da5cbd.chunk.js": "/nysse-live/static/js/453.a4da5cbd.chunk.js",
     "static/media/advanced_led_board-7.ttf": "/nysse-live/static/media/advanced_led_board-7.05791db56ef7b4bce885.ttf",
     "static/media/zones.geojson": "/nysse-live/static/media/zones.92e80e146b08175aab86.geojson",
     "index.html": "/nysse-live/index.html",
     "main.6bda03f3.css.map": "/nysse-live/static/css/main.6bda03f3.css.map",
-    "main.dcb4e1b7.js.map": "/nysse-live/static/js/main.dcb4e1b7.js.map",
+    "main.74a787fb.js.map": "/nysse-live/static/js/main.74a787fb.js.map",
     "453.a4da5cbd.chunk.js.map": "/nysse-live/static/js/453.a4da5cbd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6bda03f3.css",
-    "static/js/main.dcb4e1b7.js"
+    "static/js/main.74a787fb.js"
   ]
 }
