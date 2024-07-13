@@ -84,6 +84,7 @@ body {
   color: white;
   text-align: center;
   opacity: 0.9;
+  z-index: 2000;
 }
 
 .marker {
@@ -284,35 +285,6 @@ u {
   visibility: hidden;
 }
 
-.close-route-button {
-  font-family: "komet", sans-serif;
-  font-weight: 600;
-  font-size: 10pt;
-  z-index: 3000;
-  position: fixed;
-  top: 8px;
-  right: 8px;
-  background-color: #da2128;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 32px;
-  width: 66px;
-  line-height: 1;
-}
-
-.close-route-button:hover {
-  background-color: #e74d52;
-}
-
-.hide-icon {
-  max-width: 18px;
-  padding-right: 3px;
-  vertical-align: middle;
-}
-
 .mapboxgl-ctrl-bottom-left {
   bottom: 30px;
   z-index: 2000;
@@ -477,7 +449,7 @@ u {
 .filter-reset-all-button {
   background-color: #1a4a8f !important;
   color: white;
-  width: 240px !important;
+  width: 200px !important;
 }
 
 .filter-by-operator {

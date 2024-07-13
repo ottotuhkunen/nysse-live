@@ -48,10 +48,10 @@ const Map = ({
   const [tempFilterOperators, setTempFilterOperators] = useState(allOperators.map(op => op.id)); // Start with all operators selected
 
   const [filterVisible, setFilterVisible] = useState(false);
+  const [showOperatorResetButton, setShowOperatorResetButton] = useState(false); // State to manage visibility of operator reset button
 
   const handleApplyFilters = () => {
     setFilterLines(tempFilterLines);
-    setFilterVisible(false); // Hide filter after applying
 
     // Clear existing interval and start a new one with updated filters
     if (intervalRef.current) {
@@ -60,6 +60,8 @@ const Map = ({
     const initialUpdate = () => updateVehicleLocations(map, popup, tempFilterLines, tempFilterOperators);
     initialUpdate();
     intervalRef.current = setInterval(initialUpdate, updateInterval);
+
+    setFilterVisible(false); // Hide filter after applying
   };
 
   const handleFilterClick = (line) => {
@@ -83,6 +85,7 @@ const Map = ({
 
   const handleOperatorClick = (operatorId) => {
     setTempFilterOperators([operatorId]); // Only allow one operator at a time
+    setShowOperatorResetButton(true); // Show reset button for operators
     setFilterVisible(false); // Close the filter div
 
     // Clear existing interval and start a new one with updated filters
@@ -101,6 +104,7 @@ const Map = ({
     } else {
       setTempFilterLines([...allLines]);
     }
+    // Do not close filterVisible state here
   };
 
   const resetAllFilters = () => {
@@ -109,9 +113,8 @@ const Map = ({
 
     // Reset operators
     setTempFilterOperators(allOperators.map(op => op.id));
-
-    // Close the filter div
-    setFilterVisible(false);
+    setShowOperatorResetButton(false); // Hide reset button for operators
+    // Do not close filterVisible state here
 
     // Clear existing interval and start a new one with updated filters
     if (intervalRef.current) {
@@ -241,6 +244,7 @@ const Map = ({
               }
 
               onClickOutside(); // Inform InformationDisplay about click outside stops-layer
+              setFilterVisible(false); // Close the filter div on outside click
             }
           });
 
@@ -256,6 +260,21 @@ const Map = ({
     }
   }, [stopsData]);
 
+  // Handle click outside filter div
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (filterVisible && !e.target.closest('.filter-container') && !e.target.closest('.filter-button')) {
+        handleApplyFilters();
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [filterVisible, handleApplyFilters]);
+
   return (
     <div className="map-container" ref={mapContainer}>
       <button className="filter-button" onClick={() => setFilterVisible(!filterVisible)}>
@@ -265,7 +284,7 @@ const Map = ({
         <>
           <div className="overlay" onClick={() => setFilterVisible(false)}></div>
           <div className="filter-container">
-            <button className="filter-div-close-button" onClick={() => setFilterVisible(false)}>X</button>
+            <button className="filter-div-close-button" onClick={handleApplyFilters}>X</button>
             <h2>Linjat</h2>
             <div className="filter-buttons">
               {allLines.map((line) => (
@@ -282,7 +301,7 @@ const Map = ({
               <button onClick={resetFilters} className="filter-reset-button">
                 {tempFilterLines.length === allLines.length ? 'Käännä kaikki' : 'Näytä kaikki'}
               </button>
-              <button onClick={handleApplyFilters} className="filter-apply-button">Käytä</button>
+              <button onClick={handleApplyFilters} className="filter-apply-button">Tallenna</button>
             </div>
             <h2>Liikennöitsijät</h2>
             <div className="filter-buttons filter-by-operator">
@@ -297,15 +316,15 @@ const Map = ({
               ))}
             </div>
             <div className="filter-actions">
-              <button onClick={resetAllFilters} className="filter-reset-all-button">Näytä kaikki liikennöitsijät</button>
+              {showOperatorResetButton && (
+                <button onClick={resetAllFilters} className="filter-reset-all-button">Näytä kaikki liikennöitsijät</button>
+              )}
             </div>
           </div>
         </>
       )}
     </div>
   );
-  
-  
 };
 
 export default Map;

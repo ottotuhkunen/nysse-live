@@ -1,5 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { getColorForDelay, formatArrivalTime } from './utils';
+
+export const getColorForDelay = (item) => {
+  const delay = item.arrivalDelay;
+
+  if (delay > 900) {
+    return 'red';
+  } else if (delay > 200) {
+    return 'orange';
+  } else {
+    return 'inherit';
+  }
+};
+
+// Function to format arrival time
+export const formatArrivalTime = (item) => {
+  const currentTime = Date.now();
+  const scheduledTime = item.scheduledArrival + item.serviceDay;
+  const scheduledLocalTime = new Date(scheduledTime * 1000);
+  const scheduledHours = scheduledLocalTime.getHours().toString().padStart(2, '0');
+  const scheduledMinutes = scheduledLocalTime.getMinutes().toString().padStart(2, '0');
+
+  if (item.realtimeArrival >= 0 && item.realtimeArrival - item.scheduledArrival >= 120) { // 2 minutes
+    const realTime = item.realtimeArrival + item.serviceDay;
+    const realTimeLocalTime = new Date(realTime * 1000);
+    const realTimeHours = realTimeLocalTime.getHours().toString().padStart(2, '0');
+    const realTimeMinutes = realTimeLocalTime.getMinutes().toString().padStart(2, '0');
+    return `${scheduledHours}:${scheduledMinutes} (${realTimeHours}:${realTimeMinutes})`;
+  } else {
+    return `${scheduledHours}:${scheduledMinutes}`;
+  }
+};
 
 const InformationDisplay = ({ loading, timetable, selectedStopName, selectedStopZone }) => {
   const [time, setTime] = useState(new Date());

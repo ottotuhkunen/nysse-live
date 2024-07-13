@@ -1,4 +1,6 @@
+import React, { useEffect } from 'react';
 import mapboxgl from 'mapbox-gl';
+import '../Route.css';
 
 let routeUpdateInterval = null; // Variable to hold the interval ID
 
@@ -28,6 +30,11 @@ export const showRoute = async (map, vehicleId) => {
 
   if (routeUpdateInterval) {
     clearInterval(routeUpdateInterval); // Clear any previous intervals
+  }
+
+  const loadingMessage = document.getElementById('loading-message');
+  if (loadingMessage) {
+    loadingMessage.style.display = 'block'; // Show the loading message
   }
 
   // Function to remove all existing route layers and sources
@@ -70,6 +77,9 @@ export const showRoute = async (map, vehicleId) => {
 
     if (!Array.isArray(onwardCalls) || onwardCalls.length === 0) {
       console.error('No onward calls found or not in expected format');
+      if (loadingMessage) {
+        loadingMessage.style.display = 'none'; // Hide the loading message
+      }
       return;
     }
 
@@ -104,7 +114,7 @@ export const showRoute = async (map, vehicleId) => {
         const stopName = await getRealName(stopId);
         const expectedArrivalTime = call.expectedArrivalTime
           ? new Date(call.expectedArrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-          : 'Unknown';
+          : 'Nyt';
 
         return {
           stopName: stopName || `Stop ${stopId}`,
@@ -289,7 +299,7 @@ export const showRoute = async (map, vehicleId) => {
                 const stopName = await getRealName(stopId);
                 const expectedArrivalTime = call.expectedArrivalTime
                   ? new Date(call.expectedArrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                  : 'Unknown';
+                  : 'Nyt';
 
                 return {
                   stopName: stopName || `Stop ${stopId}`,
@@ -321,6 +331,9 @@ export const showRoute = async (map, vehicleId) => {
             // Update GeoJSON source for stops
             map.current.getSource('route-stops-live').setData(stopsGeoJSON);
 
+            // Update the route stops div
+            updateRouteStopsDiv(validStopsData);
+
           } catch (error) {
             console.error('Error updating route:', error);
           }
@@ -344,12 +357,58 @@ export const showRoute = async (map, vehicleId) => {
         clearInterval(routeUpdateInterval); // Stop updating route
         removeRoute(); // Remove route when close button is clicked
         closeButton.remove();
+        document.getElementById('route-stops-container').style.display = 'none'; // Hide the route stops div
       });
     }
 
+    // Create the route stops div if it doesn't exist
+    if (!document.getElementById('route-stops-container')) {
+      const routeStopsContainer = document.createElement('div');
+      routeStopsContainer.id = 'route-stops-container';
+      document.body.appendChild(routeStopsContainer);
+    }
+
+    // Update the route stops div with the initial data
+    updateRouteStopsDiv(validStopsData);
+
   } catch (error) {
     console.error('Error fetching vehicle data:', error);
+  } finally {
+    if (loadingMessage) {
+      loadingMessage.style.display = 'none'; // Hide the loading message
+    }
   }
 };
+
+// Function to update the route stops div with the stop data
+const updateRouteStopsDiv = (stopsData) => {
+  const routeStopsContainer = document.getElementById('route-stops-container');
+  routeStopsContainer.innerHTML = ''; // Clear existing content
+
+  const stopsList = document.createElement('div');
+  stopsList.classList.add('stops-list');
+
+  stopsData.forEach(stop => {
+    const stopItem = document.createElement('div');
+    stopItem.classList.add('stop-item');
+
+    const stopName = document.createElement('div');
+    stopName.classList.add('stop-name');
+    stopName.innerText = stop.stopName;
+
+    const stopTime = document.createElement('div');
+    stopTime.classList.add('stop-time');
+    stopTime.innerText = "~ " + stop.expectedArrivalTime;
+
+    stopItem.appendChild(stopName);
+    stopItem.appendChild(stopTime);
+    stopsList.appendChild(stopItem);
+  });
+
+  routeStopsContainer.appendChild(stopsList);
+};
+
+
+
 
 export default showRoute;

@@ -72,6 +72,7 @@ function App() {
         onClickOutside={handleOnClickOutside} 
       />
       <Alerts />
+      <div id="loading-message" className="loading-message">Ladataan reittiä...</div>
     </div>
   );
 }

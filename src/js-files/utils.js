@@ -81,13 +81,17 @@ const createPopupContent = (activity) => {
   const delayMinutes = Math.round(parseFloat(delay));
   const delayText = delayMinutes === 0 ? "0" : delayMinutes > 0 ? `+${delayMinutes}` : `${delayMinutes}`;
   let delayColor = "white"; // default color
+  let delayTextShadow = "none"; // default no shadow
 
-  if (delayMinutes < 0) {
-    delayColor = "pink";
-  } else if (delayMinutes > 8) {
-    delayColor = "red";
-  } else if (delayMinutes > 3) {
-    delayColor = "orange";
+  if (delayMinutes < -1) { // early
+    delayColor = "#f88f8b";
+    delayTextShadow = "0 0 1px #000, 0 0 2px #000, 0 0 3px #000, 0 0 4px #f88f8b";
+  } else if (delayMinutes > 9) { // very late
+    delayColor = "#f88f8b";
+    delayTextShadow = "0 0 1px #000, 0 0 2px #000, 0 0 3px #000, 0 0 4px #f88f8b";
+  } else if (delayMinutes > 3) { // late
+    delayColor = "#f88f8b";
+    delayTextShadow = "0 0 1px #000, 0 0 2px #000, 0 0 3px #000, 0 0 4px #f88f8b";
   }
 
   const popupContent = `
@@ -100,7 +104,7 @@ const createPopupContent = (activity) => {
     </div>
     <hr>
     <img src="${process.env.PUBLIC_URL}/icons/delayIcon.png" alt="Delay" class="delay-icon"/>
-    <span class="vehicle-delay-value" style="color: ${delayColor};">${delayText} min</span>
+    <span class="vehicle-delay-value" style="color: ${delayColor}; text-shadow: ${delayTextShadow};">${delayText} min</span>
 
     <button id="reitti-button" type="button" data-vehicle-id="${vehicleRef}">
       <img src="${process.env.PUBLIC_URL}/icons/openRoute.png" alt="Route" class="route-icon"/>
@@ -192,10 +196,10 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
             '3', 'tram-vehicle1', // tram
             'bus-vehicle1'
           ],
-          'icon-size': 0.18,
+          'icon-size': 0.2,
           'text-field': '{lineRef}',
           'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
-          'text-size': 10,
+          'text-size': 11,
           'icon-allow-overlap': true,
           'text-allow-overlap': true,
           'text-optional': true,
@@ -213,10 +217,12 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
           ],
           'text-color': [
             'case',
-            ['>', ['get', 'delay'], 9], '#db00d6', // violet
-            ['>', ['get', 'delay'], 4], 'orange', // orange
+            ['>', ['get', 'delay'], 9], '#f88f8b', // #EC4B8F
+            ['>', ['get', 'delay'], 4], '#f88f8b',
             'white'
-          ]
+          ],
+          'text-halo-color': 'black',
+          'text-halo-width': 1
         }
       });
 
@@ -267,37 +273,5 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
 
   } catch (error) {
     console.error('Error fetching vehicle data:', error);
-  }
-};
-
-// Function to get color for delay
-export const getColorForDelay = (item) => {
-  const delay = item.arrivalDelay;
-
-  if (delay > 900) {
-    return 'red';
-  } else if (delay > 300) {
-    return 'orange';
-  } else {
-    return 'inherit';
-  }
-};
-
-// Function to format arrival time
-export const formatArrivalTime = (item) => {
-  const currentTime = Date.now();
-  const scheduledTime = item.scheduledArrival + item.serviceDay;
-  const scheduledLocalTime = new Date(scheduledTime * 1000);
-  const scheduledHours = scheduledLocalTime.getHours().toString().padStart(2, '0');
-  const scheduledMinutes = scheduledLocalTime.getMinutes().toString().padStart(2, '0');
-
-  if (item.realtimeArrival >= 0 && item.realtimeArrival - item.scheduledArrival >= 120) { // 2 minutes
-    const realTime = item.realtimeArrival + item.serviceDay;
-    const realTimeLocalTime = new Date(realTime * 1000);
-    const realTimeHours = realTimeLocalTime.getHours().toString().padStart(2, '0');
-    const realTimeMinutes = realTimeLocalTime.getMinutes().toString().padStart(2, '0');
-    return `${scheduledHours}:${scheduledMinutes} (${realTimeHours}:${realTimeMinutes})`;
-  } else {
-    return `${scheduledHours}:${scheduledMinutes}`;
   }
 };
