@@ -38,6 +38,11 @@ const getTimeDifferenceInMinutes = (expectedArrivalTime) => {
 const removeRoute = (map) => {
   const mapLayers = map.current.getStyle().layers;
   const mapSources = map.current.getStyle().sources;
+
+  if (document.querySelector('.close-route-button')) {
+    const closeButton = document.querySelector('.close-route-button');
+    closeButton.remove();
+  }
   
   // Remove layers with IDs starting with 'route'
   mapLayers.forEach(layer => {
@@ -275,6 +280,12 @@ export const showRoute = async (map, vehicleId) => {
               console.warn('Vehicle not found or data format incorrect, stopping updates.');
               clearInterval(routeUpdateInterval);
               removeRoute(map);
+
+              const routeStopsContainer = document.getElementById('route-stops-container');
+              if (routeStopsContainer) {
+                routeStopsContainer.style.display = 'none';
+              }
+
               return;
             }
 
@@ -377,9 +388,8 @@ export const showRoute = async (map, vehicleId) => {
       document.body.appendChild(closeButton);
 
       closeButton.addEventListener('click', () => {
-        clearInterval(routeUpdateInterval); // Stop updating route
-        removeRoute(map); // Remove route when close button is clicked
-        closeButton.remove();
+        clearInterval(routeUpdateInterval);
+        removeRoute(map);
         document.getElementById('route-stops-container').style.display = 'none';
       });
     }

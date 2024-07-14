@@ -74,19 +74,6 @@ body {
   width: 100%;
 }
 
-.nav-button-container {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #0C0243;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: white;
-  text-align: center;
-  opacity: 0.9;
-  z-index: 2000;
-}
-
 .marker {
   width: 50px;
   height: 50px;
@@ -108,7 +95,7 @@ body {
 }
 
 .bus-stop-div {
-  background-color: #0C0243;
+  background-color: black;
   color: white;
   text-align: center;
   width: 100%;
@@ -286,40 +273,49 @@ u {
 }
 
 .mapboxgl-ctrl-bottom-left {
-  bottom: 30px;
-  z-index: 2000;
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 30px) + 48px);
+  z-index: 50;
 }
 
 .mapboxgl-ctrl-bottom-right {
-  bottom: -40px;
-  z-index: 2000;
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 30px) + 48px);
+  z-index: 50;
 }
 
-.mapboxgl-ctrl-top-right {
+.mapboxgl-ctrl-top-right  {
   top: unset;
-  bottom: 100px;
-}
-
-.mapboxgl-marker svg {
-  width: 18px !important;
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 30px) + 122px);
+  z-index: 50;
 }
 
 .mapboxgl-ctrl-zoom-in {
-  width: 32px !important;
-  height: 32px !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 .mapboxgl-ctrl-zoom-out {
-  width: 32px !important;
-  height: 32px !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 .mapboxgl-ctrl-compass {
-  width: 32px !important;
-  height: 32px !important;
+  width: 30px !important;
+  height: 30px !important;
 }
 .mapboxgl-ctrl-geolocate {
-  width: 32px !important;
-  height: 32px !important;
+  width: 30px !important;
+  height: 30px !important;
 }
+
+.mapbox-improve-map {
+  display: none;
+}
+
+.mapboxgl-marker svg {
+  width: 20px !important;
+}
+
 
 .zone-label {
   background-color: rgba(255, 255, 255, 0.8);
@@ -329,158 +325,32 @@ u {
   font-weight: bold;
 }
 
-/* Filter functionality */
-.filter-button {
-  position: absolute;
-  bottom: 58px;
-  right: 10px;
-  z-index: 1;
-  background-color: white;
-  user-select: none;
-  -webkit-tap-highlight-color: rgb(0 0 0/0);
-  border: 0;
-  cursor: pointer;
-  height: 32px;
-  width: 32px;
-  overflow: hidden;
-  padding: 0;
-  border-radius: 4px;
+/* Nav Buttons */
+
+.nav-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 0 2px rgba(0,0,0,.1);
+  background-color: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.filter-icon {
-  width: 72%;
-  height: auto;
-}
-
-.filter-container {
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
-  z-index: 9000;
-  background-color: #e3efff;
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: 74%;
-  max-height: 580px;
-  overflow: auto;
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+.nav-button {
+  color: white;
+  flex: 1;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 4000;
-}
-
-.filter-container h2 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5px;
-}
-
-.filter-buttons button {
-  cursor: pointer;
-  text-align: center;
-  font-family: "komet", sans-serif;
-  font-weight: 600;
-  font-size: 10pt;
   border: none;
-  border-radius: 4px;
-  width: 36px;
-  height: 36px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
-}
-
-.filter-buttons .active {
-  background-color: #0e7f3c;
-  color: white;
-}
-
-.filter-buttons button:not(.active) {
-  background-color: grey;
-  color: white;
-}
-
-.filter-actions {
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-  margin-top: 10px;
-}
-
-.filter-actions button {
-  font-family: "komet", sans-serif;
-  font-weight: 600;
-  width: 120px;
-  border: none;
-  border-radius: 4px;
-  height: 36px;
+  background: none;
   cursor: pointer;
-  margin-top: 6px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  font-size: 16px;
+  padding-top: 6px;
 }
 
-.filter-reset-button {
-  background-color: #1a4a8f !important;
-  color: white;
-}
-
-.filter-apply-button {
-  background-color: #0e7f3c !important;
-  color: white;
-}
-
-.filter-reset-all-button {
-  background-color: #1a4a8f !important;
-  color: white;
-  width: 200px !important;
-}
-
-.filter-by-operator {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  justify-items: center;
-}
-
-.filter-by-operator button {
-  width: 100%;
-  font-family: "komet", sans-serif;
-  font-weight: 600;
-}
-
-@media (max-width: 600px) {
-  .filter-by-operator {
-    grid-template-columns: 1fr;
-  }
-}
-
-.filter-div-close-button {
-  font-family: "komet", sans-serif;
-  font-weight: 600;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background-color: transparent;
-  border: none;
-  border-radius: 4px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #da2128;
+.nav-button img {
+  width: 32px;
+  height: auto;
 }

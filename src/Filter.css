@@ -1,0 +1,120 @@
+.filter-container {
+    font-family: "komet", sans-serif;
+    font-weight: 600;
+    font-size: 11pt;
+    position: fixed;
+    top: 48px;
+    bottom: 48px;
+    left: 0;
+    right: 0;
+    background-color: #e3efff;
+    color: black;
+    padding: 10px;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    text-align: center;
+  }
+  
+.filter-container h2 {
+    text-align: center;
+    margin: 13px;
+    margin-bottom: 16px;
+    font-size: 22px;
+}
+
+.filter-container h3 {
+    text-align: center;
+}
+
+.filter-icon {
+    margin-top: 4px;
+    margin-left: 4px;
+    vertical-align: center;
+    width: 16px;
+    height: auto;
+}
+  
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+}
+
+.filter-buttons button {
+    cursor: pointer;
+    text-align: center;
+    font-family: "komet", sans-serif;
+    font-weight: 600;
+    font-size: 10pt;
+    border: none;
+    border-radius: 4px;
+    width: 36px;
+    height: 36px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+
+.filter-buttons .active {
+    background-color: #0e7f3c;
+    color: white;
+    font-weight: 600;
+}
+  
+.filter-buttons button:not(.active) {
+    background-color: #fff3ee;
+    color: black;
+    font-weight: 600;
+}
+  
+.filter-actions {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+  
+.filter-actions button {
+    font-family: "komet", sans-serif;
+    font-weight: 600;
+    width: 120px;
+    border: none;
+    border-radius: 4px;
+    height: 36px;
+    cursor: pointer;
+    margin-top: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+  
+.filter-reset-button {
+    background-color: #1a4a8f !important;
+    color: white;
+    width: 200px !important;
+}
+  
+.filter-reset-all-button {
+    background-color: #1a4a8f !important;
+    color: white;
+    width: 200px !important;
+}
+  
+.filter-by-operator {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    justify-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  
+.filter-by-operator button {
+    width: 100%;
+    font-family: "komet", sans-serif;
+    font-weight: 600;
+}
+  
+@media (max-width: 600px) {
+    .filter-by-operator {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,120 +1,120 @@
 #route-stops-container {
-    position: fixed;
-    top: 48px;
-    width: 100%;
-    height: 160px;
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
-    overflow-x: auto;
-    display: flex;
-    align-items: center;
-    font-family: "komet", sans-serif;
-    font-weight: 600;
-    z-index: 8000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
+  position: fixed;
+  top: 48px;
+  width: 100%;
+  height: 160px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  font-family: "komet", sans-serif;
+  font-weight: 600;
+  z-index: 8000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
   
-  .stops-list {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    bottom: 16px;
-  }
+.stops-list {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  bottom: 16px;
+}
 
-  .stops-list::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: calc(100% - 60px); /* Make the border span the required width */
-    border-bottom: 1px solid white;
-  }
-  
-  .stop-item {
-    transform: rotate(-45deg);
-    transform-origin: left bottom;
-    text-align: left;
-    width: 30px;
-    height: 100%;
-    margin-left: 40px;
-  }
+.stops-list::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 60px); /* Make the border span the required width */
+  border-bottom: 1px solid white;
+}
 
-  .stop-item::before {
-    content: "";
-    display: block;
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute;
-    left: -23.5px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .stop-name {
-    transform-origin: left bottom;
-    margin-bottom: 5px;
-    font-family: "komet", sans-serif;
-    font-size: 11pt;
-    font-weight: 600;
-    text-align: left;
-    width: 200px;
-    margin-bottom: 0;
-  }
+.stop-item {
+  transform: rotate(-45deg);
+  transform-origin: left bottom;
+  text-align: left;
+  width: 30px;
+  height: 38px;
+  margin-left: 40px;
 
-  .stop-time {
-    transform-origin: left bottom;
-    font-family: "komet", sans-serif;
-    font-size: 10pt;
-    font-weight: 400;
-    text-align: left;
-    display: inline-block;
-    padding-left: 18px;
-    width: 60px;
-  }
+}
+
+.stop-item::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  left: -23.5px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stop-name {
+  transform-origin: left bottom;
+  font-family: "komet", sans-serif;
+  font-size: 11pt;
+  font-weight: 600;
+  text-align: left;
+  width: 400px;
+  margin-bottom: 0;
+}
+
+.stop-time {
+  transform-origin: left bottom;
+  font-family: "komet", sans-serif;
+  font-size: 10pt;
+  font-weight: 400;
+  text-align: left;
+  display: inline-block;
+  padding-left: 18px;
+  width: 60px;
+}
   
-  .close-route-button {
-    font-family: "komet", sans-serif;
-    font-weight: 600;
-    font-size: 10pt;
-    z-index: 9000;
-    position: fixed;
-    top: 8px;
-    right: 8px;
-    background-color: #da2128;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 32px;
-    width: 66px;
-    line-height: 1;
-  }
+.close-route-button {
+  font-family: "komet", sans-serif;
+  font-weight: 600;
+  font-size: 10pt;
+  z-index: 9000;
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  background-color: #da2128;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 32px;
+  width: 66px;
+  line-height: 1;
+}
+
+.close-route-button:hover {
+  background-color: #e74d52;
+}
+
+.hide-icon {
+  max-width: 18px;
+  padding-right: 3px;
+  vertical-align: middle;
+}
   
-  .close-route-button:hover {
-    background-color: #e74d52;
-  }
-  
-  .hide-icon {
-    max-width: 18px;
-    padding-right: 3px;
-    vertical-align: middle;
-  }
-  
-  .loading-message {
-    position: absolute;
-    font-family: "komet", sans-serif;
-    font-weight: 600;
-    color: white;
-    top: 0;
-    left: 50%;
-    width: 100%;
-    transform: translateX(-50%);
-    padding: 10px;
-    z-index: 9000;
-    display: none;
-    background-color: #0C0243;
-  }
+.loading-message {
+  position: absolute;
+  font-family: "komet", sans-serif;
+  font-weight: 600;
+  color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  padding: 12px;
+  z-index: 8000;
+  display: none;
+  background-color: black;
+}
   

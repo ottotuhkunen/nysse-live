@@ -5,8 +5,13 @@ import stopIcon from '../icons/stop.png';
 import { parseStopsData, updateVehicleLocations } from './utils';
 import loadZones from './Zones';
 import { routeUpdateInterval, removeRoute } from './Route';
+import { closeStopData } from '../App';
+import '../Filter.css';
 
 mapboxgl.accessToken = mapboxToken;
+
+let openFilterDiv;
+let closeFilterDiv;
 
 const Map = ({
   mapContainer,
@@ -15,7 +20,7 @@ const Map = ({
   setSelectedStop,
   setSelectedStopName,
   setSelectedStopZone,
-  onClickOutside // Callback to handle click outside stops-layer
+  onClickOutside
 }) => {
   const popup = useRef(null);
   const geolocateControlRef = useRef(null);
@@ -53,15 +58,6 @@ const Map = ({
 
   const handleApplyFilters = () => {
     setFilterLines(tempFilterLines);
-
-    // Clear existing interval and start a new one with updated filters
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    const initialUpdate = () => updateVehicleLocations(map, popup, tempFilterLines, tempFilterOperators);
-    initialUpdate();
-    intervalRef.current = setInterval(initialUpdate, updateInterval);
-
     setFilterVisible(false); // Hide filter after applying
   };
 
@@ -87,15 +83,6 @@ const Map = ({
   const handleOperatorClick = (operatorId) => {
     setTempFilterOperators([operatorId]); // Only allow one operator at a time
     setShowOperatorResetButton(true); // Show reset button for operators
-    setFilterVisible(false); // Close the filter div
-
-    // Clear existing interval and start a new one with updated filters
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-    const initialUpdate = () => updateVehicleLocations(map, popup, tempFilterLines, [operatorId]);
-    initialUpdate();
-    intervalRef.current = setInterval(initialUpdate, updateInterval);
   };
 
   const resetFilters = () => {
@@ -116,15 +103,22 @@ const Map = ({
     setTempFilterOperators(allOperators.map(op => op.id));
     setShowOperatorResetButton(false); // Hide reset button for operators
     // Do not close filterVisible state here
+  };
 
+  useEffect(() => {
     // Clear existing interval and start a new one with updated filters
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
-    const initialUpdate = () => updateVehicleLocations(map, popup, allLines, allOperators.map(op => op.id));
+
+    const initialUpdate = () => updateVehicleLocations(map, popup, tempFilterLines, tempFilterOperators);
     initialUpdate();
     intervalRef.current = setInterval(initialUpdate, updateInterval);
-  };
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
+  }, [tempFilterLines, tempFilterOperators]);
 
   useEffect(() => {
     if (stopsData) {
@@ -136,7 +130,8 @@ const Map = ({
         center: [23.7610, 61.4978],
         zoom: 9,
         pitchWithRotate: true,
-        pitch: 0
+        pitch: 0,
+        customAttribution: '© Otto Tuhkunen | © Digitransit 2024'
       });
 
       map.current.on('load', () => {
@@ -249,10 +244,6 @@ const Map = ({
             }
           });
 
-          const initialUpdate = () => updateVehicleLocations(map, popup, filterLines, tempFilterOperators);
-          initialUpdate();
-          intervalRef.current = setInterval(initialUpdate, updateInterval);
-
           return () => {
             clearInterval(intervalRef.current);
           };
@@ -260,21 +251,6 @@ const Map = ({
       });
     }
   }, [stopsData]);
-
-  // Handle click outside filter div
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (filterVisible && !e.target.closest('.filter-container') && !e.target.closest('.filter-button')) {
-        handleApplyFilters();
-      }
-    };
-
-    document.addEventListener('click', handleOutsideClick);
-
-    return () => {
-      document.removeEventListener('click', handleOutsideClick);
-    };
-  }, [filterVisible, handleApplyFilters]);
 
   function closeRouteDiv() {
     const routeStopsContainer = document.getElementById('route-stops-container');
@@ -284,18 +260,28 @@ const Map = ({
       removeRoute(map); 
     }
   }
+  
+  openFilterDiv = () =>  {
+    setFilterVisible(true);
+    closeRouteDiv();
+    closeStopData();
+  };
+
+  closeFilterDiv = () => { 
+    handleApplyFilters();
+    setFilterVisible(false);
+  };
 
   return (
     <div className="map-container" ref={mapContainer}>
-      <button className="filter-button" onClick={() => {setFilterVisible(!filterVisible); closeRouteDiv();}}>
-        <img src={`${process.env.PUBLIC_URL}/icons/filter.png`} alt="Filter" className="filter-icon" />
-      </button>
       {filterVisible && (
         <>
-          <div className="overlay"></div>
           <div className="filter-container">
-            <button className="filter-div-close-button" onClick={handleApplyFilters}>X</button>
-            <h2>Linjat</h2>
+            <h2>
+              Suodata
+              <img src={`${process.env.PUBLIC_URL}/icons/filter.svg`} alt="" className="filter-icon" />
+            </h2>
+            <h3>Valitse linja...</h3>
             <div className="filter-buttons">
               {allLines.map((line) => (
                 <button
@@ -308,12 +294,13 @@ const Map = ({
               ))}
             </div>
             <div className="filter-actions">
-              <button onClick={resetFilters} className="filter-reset-button">
-                {tempFilterLines.length === allLines.length ? 'Käännä kaikki' : 'Näytä kaikki'}
-              </button>
-              <button onClick={handleApplyFilters} className="filter-apply-button">Tallenna</button>
+              {tempFilterLines.length != allLines.length && (
+                <button onClick={resetFilters} className="filter-reset-button">
+                  Näytä kaikki linjat
+                </button>
+              )}
             </div>
-            <h2>Liikennöitsijät</h2>
+            <h3>tai liikennöitsijä</h3>
             <div className="filter-buttons filter-by-operator">
               {allOperators.map((operator) => (
                 <button
@@ -327,14 +314,18 @@ const Map = ({
             </div>
             <div className="filter-actions">
               {showOperatorResetButton && (
-                <button onClick={resetAllFilters} className="filter-reset-all-button">Näytä kaikki liikennöitsijät</button>
+                <button onClick={resetAllFilters} className="filter-reset-all-button">
+                  Näytä kaikki liikennöitsijät
+                </button>
               )}
             </div>
           </div>
         </>
       )}
     </div>
-  );
+  );  
 };
+
+export { openFilterDiv, closeFilterDiv };
 
 export default Map;

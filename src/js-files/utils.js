@@ -5,6 +5,7 @@ import showRoute from './Route';
 import busIconUrl from '../icons/bus-vehicle1.png';
 import tramIconUrl from '../icons/tram-vehicle1.png';
 
+let selectedVehicleId = null; // Track the currently selected vehicle
 
 // Fetch the stops data from a local file
 export const fetchStopsData = async () => {
@@ -266,9 +267,27 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
           popupElement.classList.add('bus-popup');
         }
 
+        // Track the currently selected vehicle
+        selectedVehicleId = e.features[0].properties.vehicleRef;
+
         // Reattach event listener for "Reitti" button inside the popup
         document.addEventListener('click', reittiButtonClickHandler);
       });
+    }
+
+    // Update popup position or remove if vehicle is no longer found
+    if (selectedVehicleId && popup.current) {
+      const selectedFeature = features.find(feature => feature && feature.properties.vehicleRef === selectedVehicleId);
+      if (selectedFeature) {
+        // Update popup position
+        const coordinates = selectedFeature.geometry.coordinates.slice();
+        popup.current.setLngLat(coordinates);
+      } else {
+        // Remove popup if vehicle is no longer found
+        popup.current.remove();
+        popup.current = null;
+        selectedVehicleId = null;
+      }
     }
 
   } catch (error) {
