@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import '../App.css';
 import { openAlerts, closeAlerts } from './Alerts';
 import { openFilterDiv, closeFilterDiv } from './Map';
-import Stats from './Stats'; // Import the Stats component
-import Favourite from './Favourite'; // Import the Favourite component
+import Stats from './Stats';
+import Favourite from './Favourite';
+import { closeStopData } from '../App';
 
 const NavButtons = () => {
   const [activeButton, setActiveButton] = useState('map'); // Set 'map' as the default active button
@@ -22,11 +23,11 @@ const NavButtons = () => {
   };
 
   const buttons = [
-    { name: 'favourite', alt: 'Suosikki', onClick: [closeAlerts, closeFilterDiv] },
-    { name: 'filter', alt: 'Suodata', onClick: [closeAlerts, openFilterDiv] },
+    { name: 'favourite', alt: 'Suosikki', onClick: [closeAlerts, closeFilterDiv, closeStopData] },
+    { name: 'filter', alt: 'Suodata', onClick: [closeAlerts, openFilterDiv,closeStopData] },
     { name: 'map', alt: 'Kartta', onClick: [closeAlerts, closeFilterDiv] },
-    { name: 'chart', alt: 'Tilastot', onClick: [closeAlerts, closeFilterDiv] },
-    { name: 'alert', alt: 'Varoitukset', onClick: [openAlerts, closeFilterDiv] },
+    { name: 'chart', alt: 'Tilastot', onClick: [closeAlerts, closeFilterDiv, closeStopData] },
+    { name: 'alert', alt: 'Varoitukset', onClick: [openAlerts, closeFilterDiv, closeStopData] },
   ];
 
   return (

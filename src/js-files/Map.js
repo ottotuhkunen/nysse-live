@@ -5,13 +5,14 @@ import stopIcon from '../icons/stop.png';
 import { parseStopsData, updateVehicleLocations } from './utils';
 import loadZones from './Zones';
 import { routeUpdateInterval, removeRoute } from './Route';
-import { closeStopData } from '../App';
 import '../Filter.css';
 
 mapboxgl.accessToken = mapboxToken;
 
 let openFilterDiv;
 let closeFilterDiv;
+let allLines;
+let stopsCount;
 
 const Map = ({
   mapContainer,
@@ -28,7 +29,7 @@ const Map = ({
   const markerRef = useRef(null); // Reference to the marker
   const intervalRef = useRef(null); // Reference to the interval ID
 
-  const allLines = [
+  allLines = [
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19',
     '22', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36A', '36B', '37', '37X', '38', '39',
     '40', '40A', '40B', '40C', '41', '42', '43U', '44', '44A', '45', '46', '47', '48', '48A', '48B', '48C',
@@ -123,6 +124,7 @@ const Map = ({
   useEffect(() => {
     if (stopsData) {
       const stops = parseStopsData(stopsData);
+      stopsCount = stops.length;
 
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
@@ -264,7 +266,6 @@ const Map = ({
   openFilterDiv = () =>  {
     setFilterVisible(true);
     closeRouteDiv();
-    closeStopData();
   };
 
   closeFilterDiv = () => { 
@@ -281,7 +282,7 @@ const Map = ({
               Suodata
               <img src={`${process.env.PUBLIC_URL}/icons/filter.svg`} alt="" className="filter-icon" />
             </h2>
-            <h3>Valitse linja...</h3>
+            <h3>Valitse linjat...</h3>
             <div className="filter-buttons">
               {allLines.map((line) => (
                 <button
@@ -327,5 +328,5 @@ const Map = ({
 };
 
 export { openFilterDiv, closeFilterDiv };
-
+export { allLines, stopsCount };
 export default Map;

@@ -5,7 +5,8 @@ import showRoute from './Route';
 import busIconUrl from '../icons/bus-vehicle1.png';
 import tramIconUrl from '../icons/tram-vehicle1.png';
 
-let selectedVehicleId = null; // Track the currently selected vehicle
+let selectedVehicleId = null;
+let vehicleCount;
 
 // Fetch the stops data from a local file
 export const fetchStopsData = async () => {
@@ -55,11 +56,30 @@ const parseISODurationToMinutes = (duration) => {
   return totalMinutes;
 };
 
-// Fetch the real name from the API based on shortName
-const getRealName = async (shortName) => {
-  const url = `https://data.itsfactory.fi/journeys/api/1/stop-points/${shortName}`;
+// Fetch the real name (headSign) from the datedVehicleJourneyRef API
+const getRealName = async (journeyUrl, shortName) => {
+
+  // First attempt: try to get the headSign from the journey URL
   try {
-    const response = await fetch(url);
+    const response = await fetch(journeyUrl);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    if (data && data.body && data.body.length > 0) {
+      const firstItem = data.body[0];
+      if (firstItem && firstItem.headSign) {
+        return firstItem.headSign;
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching real name from journey URL:', error);
+  }
+
+  // If the first attempt fails, fallback to using the shortName
+  const fallbackUrl = `https://data.itsfactory.fi/journeys/api/1/stop-points/${shortName}`;
+  try {
+    const response = await fetch(fallbackUrl);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -68,9 +88,11 @@ const getRealName = async (shortName) => {
       return data.body[0].name;
     }
   } catch (error) {
-    console.error('Error fetching real name:', error);
+    console.error('Error fetching real name from fallback URL:', error);
   }
-  return shortName; // Return the shortName if fetching fails
+
+  // Return the shortName if both attempts fail
+  return shortName;
 };
 
 // Function to create popup content for map marker click
@@ -108,7 +130,7 @@ const createPopupContent = (activity) => {
     <span class="vehicle-delay-value" style="color: ${delayColor}; text-shadow: ${delayTextShadow};">${delayText} min</span>
 
     <button id="reitti-button" type="button" data-vehicle-id="${vehicleRef}">
-      <img src="${process.env.PUBLIC_URL}/icons/openRoute.png" alt="Route" class="route-icon"/>
+      <img src="${process.env.PUBLIC_URL}/icons/openRoute.svg" alt="Route" class="route-icon"/>
       <u>Reitti</u>
     </button>
   `;
@@ -130,9 +152,13 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
     const data = await response.json();
     vehicleActivities = data.body; // Update vehicleActivities with latest data
 
+    vehicleCount = vehicleActivities.length;
+
     const features = await Promise.all(vehicleActivities.map(async (activity) => {
       const delayInMinutes = parseISODurationToMinutes(activity.monitoredVehicleJourney.delay);
-      const realDestinationName = await getRealName(activity.monitoredVehicleJourney.destinationShortName);
+      const journeyUrl = activity.monitoredVehicleJourney.framedVehicleJourneyRef.datedVehicleJourneyRef;
+      const shortName = activity.monitoredVehicleJourney.destinationShortName; 
+      const realDestinationName = await getRealName(journeyUrl, shortName);
 
       // Filter vehicles based on selected lines and operators
       if ((filterLines.length === 0 || filterLines.includes(activity.monitoredVehicleJourney.lineRef)) &&
@@ -201,10 +227,12 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
           'text-field': '{lineRef}',
           'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
           'text-size': 11,
-          'icon-allow-overlap': true,
-          'text-allow-overlap': true,
-          'text-optional': true,
           'text-anchor': 'center',
+          'text-allow-overlap': true,
+          'icon-allow-overlap': true,
+          'text-ignore-placement': true,
+          'icon-ignore-placement': true, 
+          'symbol-sort-key': ['get', 'delay'],
           'icon-rotate': ['get', 'bearing']
         },
         paint: {
@@ -223,20 +251,16 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
             'white'
           ],
           'text-halo-color': 'black',
-          'text-halo-width': 1
+          'text-halo-width': 1,
         }
       });
+      
 
       // Define the click event handler for "Reitti" button
       reittiButtonClickHandler = async (e) => {
         if (e.target && e.target.id === 'reitti-button') {
           e.preventDefault();
           let vehicleId = e.target.dataset.vehicleId;
-
-          if (popup.current) {
-            popup.current.remove();
-            popup.current = null; // Ensure the reference is cleared
-          }
 
           // Call showRoute with map and vehicleActivity
           await showRoute(map, vehicleId);
@@ -294,3 +318,5 @@ export const updateVehicleLocations = async (map, popup, filterLines = [], filte
     console.error('Error fetching vehicle data:', error);
   }
 };
+
+export { vehicleCount };

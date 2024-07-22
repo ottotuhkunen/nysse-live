@@ -8,8 +8,8 @@ let closeAlerts;
 
 const Alerts = () => {
   const [alerts, setAlerts] = useState([]);
+  const [cancelledTrips, setCancelledTrips] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [activeAlertIndex, setActiveAlertIndex] = useState(0);
   const tickerRef = useRef(null);
   const containerRef = useRef(null);
 
@@ -26,7 +26,18 @@ const Alerts = () => {
       }
     };
 
+    const fetchCancelledTrips = async () => {
+      try {
+        const response = await fetch('https://lissu.tampere.fi/timetable/rest/cancelledtrips');
+        const data = await response.json();
+        setCancelledTrips(data);
+      } catch (error) {
+        console.error('Error fetching cancelled trips:', error);
+      }
+    };
+
     fetchAlerts();
+    fetchCancelledTrips();
   }, []);
 
   const formatDate = (timestamp) => {
@@ -34,10 +45,17 @@ const Alerts = () => {
     return format(date, 'd MMMM yyyy', { locale: fi });
   };
 
+  const formatTime = (timestamp) => {
+    const date = new Date(timestamp);
+    const hours = date.getUTCHours().toString().padStart(2, '0');
+    const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+
   openAlerts = () => setShowModal(true);
   closeAlerts = () => setShowModal(false);
  
-  if (alerts.length === 0) {
+  if (alerts.length === 0 && cancelledTrips.length === 0) {
     return null; // Do not show alerts-container if no alerts are found
   }
 
@@ -69,6 +87,35 @@ const Alerts = () => {
                 </table>
               </div>
             ))}
+          </div>
+          <h2>
+            Perutut vuorot
+            <img src={`${process.env.PUBLIC_URL}/icons/cancel.svg`} alt="Peruttu" className="arrow-icon" />
+          </h2>
+          <div className="alerts-modal-content">
+            {cancelledTrips.length > 0 ? cancelledTrips.map((trip, index) => (
+              <div key={index} className="alert-item">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>
+                        Linja {trip.routeShortName}, {trip.tripStartStop.name} - {trip.tripDestinationName} on {trip.cancelledPartially ? 'osittain peruttu' : 'peruttu'}.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className='modal-date'>
+                        <img src={`${process.env.PUBLIC_URL}/icons/date.svg`} alt="aika" className="date-icon-modal" />
+                        {trip.tripOperatingDate === format(new Date(), 'yyyy-MM-dd') ? 'tänään' : formatDate(trip.tripDepartureTime)} klo {formatTime(trip.tripDepartureTime)}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )) : (
+              <div className="alert-item">
+                Ei tiedossa olevia peruttuja vuoroja
+              </div>
+            )}
           </div>
         </div>
       )}

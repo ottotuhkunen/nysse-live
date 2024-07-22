@@ -10,7 +10,7 @@
     background-color: #e3efff;
     color: black;
     padding: 10px;
-    z-index: 1000;
+    z-index: 9000;
     overflow-y: auto;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     text-align: left;
@@ -23,13 +23,144 @@
 }
 
 .star-icon {
-    margin-top: 4px;
-    margin-left: 4px;
-    vertical-align: center;
-    width: 18px;
+    margin-left: 6px;
+    vertical-align: top;
+    width: 19px;
     height: auto;
 }
 
 .favourite-container p {
     text-align: center;
+}
+
+.search-input {
+    box-sizing: border-box; 
+    font-family: "komet", sans-serif;
+    font-weight: 400;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+  
+.search-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+  
+.search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+.search-results li {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+  
+.search-results li:hover {
+    background-color: #f1f1f1;
+}
+  
+.favourite-list {
+    margin-top: 20px;
+}
+  
+.favourite-item {
+    display: flex;
+    flex-direction: column; /* Ensure children stack vertically */
+    background-color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* For positioning of delete button */
+}
+  
+.favourite-item p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    margin-left: 32px;
+    font-size: 1em;
+    color: #333;
+    flex: 1;
+    cursor: pointer;
+}
+
+.favourite-item img.fav-div-icon-drag {
+    cursor: grab;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 20px;
+}
+
+.favourite-item img.fav-div-icon-delete {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 22px;
+}
+
+.tariff-icon {
+    margin-right: 6px;
+    width: 16px;
+    height: auto;
+    vertical-align: top;
+}
+
+.short-name-span {
+    padding-left: 6px;
+    font-family: "komet", sans-serif;
+    font-weight: 400;
+    font-size: 10pt;
+}
+
+.timetable {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    display: block;
+    margin-left: 32px;
+}
+
+.timetable table {
+    margin-left: 0px;
+    margin-right: 65px;
+    border-collapse: collapse;
+}
+  
+.timetable table th {
+    text-align: left;
+    padding-right: 10px;
+    font-size: 9pt;
+    font-family: "komet", sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    padding-bottom: 6px;
+}
+
+.timetable table td {
+    text-align: left;
+    padding-right: 14px;
+    font-size: 10pt;
+    font-family: "komet", sans-serif;
+    font-weight: 600;
+    border-bottom: 1px solid #ddd;
+}
+
+.timetable table td:nth-child(1) {
+    text-align: right;
 }
