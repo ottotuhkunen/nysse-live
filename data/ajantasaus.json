@@ -1,0 +1,1354 @@
+[
+    {
+      "lineShortName": "1",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["0907", "0854"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0855", "0908"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "2",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["5021", "0063"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0063", "5021"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "3",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["0839", "0835", "0950", "0854"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0855", "0951", "0840"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "4",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["3598", "0035", "1532", "1077"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1077", "1533", "0012", "3598"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "5",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["3598", "3639", "0042"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0042", "3638", "3598"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "6",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["4600", "5081", "0574"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0574", "5128", "4600"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "7",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["5126", "0035", "1533"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1542", "0012", "5126"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "8",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["7060", "7017", "0519", "1532", "1668"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1668", "1533", "0518", "7060"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "9",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["4045", "0519", "1014", "1028"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1028", "1017", "0518", "4045"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "10",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["4078", "0035", "2017"]
+        },
+        {
+          "direction": "2",
+          "stops": ["2017", "0012", "4078"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "11",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["2604", "2591", "0121", "5030"]
+        },
+        {
+          "direction": "2",
+          "stops": ["5030", "0120", "2595", "2604"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "12",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["7023", "7017", "0121", "1014", "1100"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1100", "1017", "0120", "7016", "7023"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "13",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["3617", "0121", "5103"]
+        },
+        {
+          "direction": "2",
+          "stops": ["5102", "0120", "3617"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "14",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["5102", "3117", "0063"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0063", "3120", "5103"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "15",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["5221", "5124", "5107"]
+        },
+        {
+          "direction": "2",
+          "stops": ["5105", "5048", "5221"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "16",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["5055", "5107"]
+        },
+        {
+          "direction": "2",
+          "stops": ["5105", "5055"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "17",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["4065", "5126", "5107"]
+        },
+        {
+          "direction": "2",
+          "stops": ["5105", "5123", "4065"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "18",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["5249", "5081", "5107"]
+        },
+        {
+          "direction": "2",
+          "stops": ["5105", "5128", "5249"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "19",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["3521", "0519", "1014", "1028"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1028", "1017", "0518", "3521"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "22",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["0031", "1014", "1047"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1047", "1017", "0031"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "26",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["7662", "0121", "1570"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1570", "0120", "7662"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "27",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["3545", "0084", "2031"]
+        },
+        {
+          "direction": "2",
+          "stops": ["2031", "0085", "3545"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "28",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "29",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["5276", "5081", "0108", "1610", "1672"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1672", "1611", "0109", "5128", "7275"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "30",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["2595", "0008"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0008", "2584"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "31",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "32",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "33",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "34",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "35",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "36A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "36B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "37",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "37X",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "38",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["3521", "5126", "5102", "1016", "1028"]
+        },
+        {
+          "direction": "2",
+          "stops": ["1028", "1017", "5103", "5123", "3521"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "39",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "40A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["8166", "8035", "0001"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0001", "8034", "8166"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "40B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["8064", "8035", "0001"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0001", "8034", "8064"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "40C",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["8122", "8035", "0001"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0001", "8034", "8122"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "41",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "42",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["9250", "9161", "9133", "9029", "8035", "0574"]
+        },
+        {
+          "direction": "2",
+          "stops": ["0574", "8034", "9132", "9162", "9250"]
+        }
+      ]
+    },
+    {
+      "lineShortName": "43U",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "44",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "44A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "45",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "46",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "47",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "48",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "48A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "48B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "48C",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "48D",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "49",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "50",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "52A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "52B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "55",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "60",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "60U",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "63",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "64",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "65",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "65A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "66",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "67",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "68U",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "69U",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "70",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "71",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "72A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "72B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "73A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "73B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "74",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "76",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "77",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "77X",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "78",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "78X",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "79A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "79B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "80",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "80Y",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "81",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "82",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "84",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "85",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "86",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "86X",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "87U",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "90",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "90X",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "91",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "92",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "94",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "95",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "95U",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "96U",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "97A",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+      "lineShortName": "97B",
+      "timeCheckStops": [
+        {
+          "direction": "1",
+          "stops": ["", "", "", ""]
+        },
+        {
+          "direction": "2",
+          "stops": ["", "", "", ""]
+        }
+      ]
+    },
+    {
+        "lineShortName": "97C",
+        "timeCheckStops": [
+            {
+            "direction": "1",
+            "stops": ["", "", "", ""]
+            },
+            {
+            "direction": "2",
+            "stops": ["", "", "", ""]
+            }
+        ]
+    },
+    {
+        "lineShortName": "97D",
+        "timeCheckStops": [
+            {
+            "direction": "1",
+            "stops": ["", "", "", ""]
+            },
+            {
+            "direction": "2",
+            "stops": ["", "", "", ""]
+            }
+        ]
+    },
+    {
+        "lineShortName": "301",
+        "timeCheckStops": [
+            {
+            "direction": "1",
+            "stops": ["", "", "", ""]
+            },
+            {
+            "direction": "2",
+            "stops": ["", "", "", ""]
+            }
+        ]
+    },
+    {
+        "lineShortName": "303",
+        "timeCheckStops": [
+            {
+            "direction": "1",
+            "stops": ["", "", "", ""]
+            },
+            {
+            "direction": "2",
+            "stops": ["", "", "", ""]
+            }
+        ]
+    }
+]
